@@ -91,10 +91,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddAuthorization();
 
+// using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContext"));
+    var cs = builder.Configuration.GetConnectionString("ApplicationDbContext");
+    options.UseMySql(cs, ServerVersion.AutoDetect(cs));
 });
+
 
 builder.Services.AddRazorPages();
 
